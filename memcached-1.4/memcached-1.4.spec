@@ -1,7 +1,3 @@
-# $Id: memcached.spec 4876 2006-11-11 11:55:45Z dag $
-# Authority: dag
-# Upstream: Brad Fitzpatrick <brad$danga,com>
-
 ### perl-AnyEvent is rfx on EL5, and so memcached must be as well
 %{?el5:# Tag: rfx}
 ### EL6 ships with memcached-1.4.4-3.el6
@@ -20,14 +16,12 @@ Release: 1%{?dist}
 License: BSD
 Group: System Environment/Daemons
 URL: http://memcached.org/
-
-Packager: Dag Wieers <dag@wieers.com>
-Vendor: Dag Apt Repository, http://dag.wieers.com/apt/
-
+Packager: Nathan Milford <nathan@outbrain.com> 
 Source: http://memcached.googlecode.com/files/memcached-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-
+Requires: libevent
 BuildRequires: libevent-devel
+AutoReqProv: no
 Requires(post): /sbin/chkconfig
 Requires(preun): /sbin/chkconfig, /sbin/service
 Requires(postun): /sbin/service
@@ -198,7 +192,7 @@ fi
 %{_includedir}/memcached
 
 %changelog
-* Sat  Jan 28 2012 Nathan Milford <nathan@milford.io> - 1.4.11-1
+* Sat Jan 28 2012 Nathan Milford <nathan@milford.io> - 1.4.11-1
 - Updated to 1.4.11.
 
 * Thu Aug 25 2011 Steve Huff <shuff@vecna.org> - 1.4.7-1
@@ -263,3 +257,4 @@ fi
 
 * Thu Feb 24 2005 Rob Starkey <falcon@rasterburn.com> - 1.1.11-1
 - Initial package.
+
