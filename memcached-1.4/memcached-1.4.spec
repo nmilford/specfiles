@@ -11,7 +11,7 @@
 
 Summary: Distributed memory object caching system
 Name: memcached
-Version: 1.4.11
+Version: 1.4.12
 Release: 1%{?dist}
 License: BSD
 Group: System Environment/Daemons
@@ -192,6 +192,9 @@ fi
 %{_includedir}/memcached
 
 %changelog
+* Sat Jan 28 2012 Nathan Milford <nathan@milford.io> - 1.4.12-1
+- Updated to 1.4.12
+
 * Sat Jan 28 2012 Nathan Milford <nathan@milford.io> - 1.4.11-1
 - Updated to 1.4.11.
 
