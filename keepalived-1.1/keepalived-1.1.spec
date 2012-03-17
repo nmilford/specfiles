@@ -96,8 +96,10 @@ fi
 
 
 %changelog
-* Sat Mar 17 2012 Nathan Milford <nathan@milford.io> 1.2.2
-- Updated to 1.2.2
+* Sat Mar 17 2012 Nathan Milford <nathan@milford.io> 1.1.20
+- Updated to 1.1.20
+- Fixed the %setup statement
+- Addded RHEL friendly --with-kernel-dir statement to it builds with LVS.
 
 * Thu Sep 13 2007 Alexandre Cassen <acassen@linux-vs.org> 1.1.14
 - Merge work done by freshrpms.net... Thanks guys !!! ;)
