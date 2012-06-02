@@ -1,6 +1,6 @@
 %define storm_name storm
 %define storm_branch 0.7
-%define storm_version 0.7.1
+%define storm_version 0.7.2
 %define release_version 1
 %define storm_home /opt/%{storm_name}-%{storm_version}
 %define etc_storm /etc/%{name}
@@ -170,5 +170,5 @@ fi
 %service_macro supervisor
 
 %changelog
-* Fri Jun 01 2012 Nathan Milford <nathan@milford.io> [0.7.1-1]
-- First shot with Storm 0.7.1.
+* Fri Jun 01 2012 Nathan Milford <nathan@milford.io> [0.7.2-1]
+- First shot with Storm 0.7.2.
