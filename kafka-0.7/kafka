@@ -1,0 +1,7 @@
+export KAFKA_HOME=/opt/kafka
+export KAFKA_USER="kafka"
+export KAFKA_CONF=/etc/kafka/
+export KAFKA_OUT=/var/log/kafka/kafka.out
+export JMX_PORT=7999
+export JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.port=$JMX_PORT "
+export JAVA_OPTS="-Xmx512M -server -Dlog4j.configuration=file:$KAFKA_CONF/log4j.properties $JMX_OPTS"

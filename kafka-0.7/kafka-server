@@ -1,0 +1,83 @@
+#!/bin/bash
+#
+# /etc/init.d/kafka-server
+#
+# Startup script for kafka-server
+# 
+# chkconfig: 2345 20 80
+# description: Starts and stops kafka-server
+. /etc/init.d/functions
+
+desc="Kafka distributed messaging system"
+
+if [ -f /etc/sysconfig/kafka ]; then
+  . /etc/sysconfig/kafka
+fi
+
+start() {
+  echo -n $"Starting $desc (kafka-server): "
+
+  for file in $KAFKA_HOME/project/boot/scala-2.8.0/lib/*.jar; do
+    CLASSPATH=$CLASSPATH:$file
+  done
+
+  for file in $KAFKA_HOME/core/target/scala_2.8.0/*.jar;do
+    CLASSPATH=$CLASSPATH:$file
+  done
+
+  for file in $KAFKA_HOME/core/lib/*.jar;do
+    CLASSPATH=$CLASSPATH:$file
+  done
+
+  for file in $KAFKA_HOME/core/lib_managed/scala_2.8.0/compile/*.jar; do
+    if [ ${file##*/} != "sbt-launch.jar" ]; then
+      CLASSPATH=$CLASSPATH:$file
+    fi
+  done
+
+  if [ -z "$JAVA_OPTS" ]; then
+    JAVA_OPTS="-Xmx512M -server  -Dlog4j.configuration=file:$KAFKA_CONF/log4j.properties"
+  fi
+
+  if [ -z "$JAVA_HOME" ]; then
+    JAVA="java"
+  else
+    JAVA="$JAVA_HOME/bin/java"
+  fi
+
+  su $KAFKA_USER -c "nohup $JAVA $JAVA_OPTS -cp $CLASSPATH kafka.Kafka $KAFKA_CONF/server.properties >>$KAFKA_OUT 2>&1 &"
+  
+  RETVAL=$?
+  return $RETVAL
+}
+
+stop() {
+  echo -n $"Shutting down  $desc (kafka-server): "
+  pkill -f kafka.Kafka
+}
+
+restart() {
+    stop
+    start
+}
+
+status() {
+  pid=$(pgrep -f kafka.Kafka)
+    
+  if [ -z $pid ]; then
+    echo "kafka-server is NOT running."
+  else
+    echo "kafka-server is running (pid is $pid)."
+  fi
+
+}
+
+case "$1" in
+  start)   start;;
+  stop)    stop;;
+  restart) restart;;
+  status)  status;;
+  *)       echo "Usage: $0 {start|stop|restart}"
+           RETVAL=2;;
+esac
+exit $RETVAL
