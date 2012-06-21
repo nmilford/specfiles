@@ -1,6 +1,10 @@
+# sudo yum -y install rpmdevtools && rpmdev-setuptree
+# wget https://github.com/downloads/nathanmarz/storm/storm-0.7.3.zip -O ~/rpmbuild/SOURCES/storm-0.7.3.zip
+# rpmbuild -bb ~/rpmbuild/SPECS/storm.spec
+
 %define storm_name storm
 %define storm_branch 0.7
-%define storm_version 0.7.2
+%define storm_version 0.7.3
 %define release_version 1
 %define storm_home /opt/%{storm_name}-%{storm_version}
 %define etc_storm /etc/%{name}
@@ -22,7 +26,7 @@ Source3: storm-supervisor
 Source4: storm
 Source5: storm.nofiles.conf
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-%(%{__id_u} -n)
-Requires: jdk, sh-utils, textutils, /usr/sbin/useradd, /usr/sbin/usermod, /sbin/chkconfig, /sbin/service
+Requires: sh-utils, textutils, /usr/sbin/useradd, /usr/sbin/usermod, /sbin/chkconfig, /sbin/service
 Provides: storm
 Vendor: Nathan Marz <nathan.marz@gmail.com>
 Packager: Nathan Milford <nathan@milford.io>
@@ -36,7 +40,7 @@ a set of general primitives for doing realtime computation.
 %package nimbus
 Summary: The Storm Nimbus node manages the Storm cluster.
 Group: System/Daemons
-Requires: %{name} = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}, jzmq
 BuildArch: noarch
 %description nimbus
 Nimbus is responsible for distributing code around the Storm cluster, assigning
@@ -54,7 +58,7 @@ a high level view of the cluster.
 %package supervisor
 Summary: The Storm Supervisor is a worker process of the Storm cluster.
 Group: System/Daemons
-Requires: %{name} = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}, jzmq
 BuildArch: noarch
 %description supervisor
 The Supervisor listens for work assigned to its machine and starts and stops
@@ -62,6 +66,15 @@ worker processes as necessary based on what Nimbus has assigned to it.
 
 %prep
 %setup -n %{storm_name}-%{storm_version}
+
+%build
+echo 'log4j.rootLogger=INFO, R
+log4j.appender.R=org.apache.log4j.RollingFileAppender
+log4j.appender.R.File=${storm.home}/logs/${logfile.name}
+log4j.appender.R.MaxFileSize=50MB
+log4j.appender.R.MaxBackupIndex=10
+log4j.appender.R.layout=org.apache.log4j.PatternLayout
+log4j.appender.R.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n' ./conf/storm.log.properties
 
 %clean
 rm -rf %{buildroot}
@@ -108,10 +121,8 @@ install -d -m 755 %{buildroot}/%{_initrddir}
 install    -m 755 %_sourcedir/storm-nimbus     %{buildroot}/%{_initrddir}/storm-nimbus
 install    -m 755 %_sourcedir/storm-ui         %{buildroot}/%{_initrddir}/storm-ui
 install    -m 755 %_sourcedir/storm-supervisor %{buildroot}/%{_initrddir}/storm-supervisor
-
-install -d -m 755 %{buildroot}/%{_sysconfdir}/sysconfig/
+install -d -m 755 %{buildroot}/%{_sysconfdir}/sysconfig
 install    -m 644 %_sourcedir/storm            %{buildroot}/%{_sysconfdir}/sysconfig/storm
-
 install -d -m 755 %{buildroot}/%{_sysconfdir}/security/limits.d/
 install    -m 644 %_sourcedir/storm.nofiles.conf %{buildroot}/%{_sysconfdir}/security/limits.d/storm.nofiles.conf
 
@@ -141,12 +152,13 @@ getent passwd %{storm_user} >/dev/null || /usr/sbin/useradd --comment "Storm Dae
 %{storm_home}
 %{storm_home}/*
 %attr(755,%{storm_user},%{storm_group}) %{storm_home}/bin/*
-/etc/storm/* 
+/etc/storm 
 /var/log/*
 /var/run/storm/
 /usr/bin/storm
 /etc/sysconfig/storm
 /etc/security/limits.d/storm.nofiles.conf
+
 
 %define service_macro() \
 %files %1 \
@@ -169,6 +181,3 @@ fi
 %service_macro ui
 %service_macro supervisor
 
-%changelog
-* Fri Jun 01 2012 Nathan Milford <nathan@milford.io> [0.7.2-1]
-- First shot with Storm 0.7.2.

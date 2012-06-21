@@ -22,14 +22,14 @@ if [ -f /etc/sysconfig/storm ]; then
 fi
 
 start() {
-  echo -n $"Starting $desc (storm-$stormSvc): "
+  echo "Starting $desc (storm-$stormSvc): "
   su $stormUser -c "nohup storm $stormSvc >>$outFile 2>&1 &"
   RETVAL=$?
   return $RETVAL
 }
 
 stop() {
-  echo -n $"Shutting down $desc (storm-$stormSvc): "
+  echo "Shutting down $desc (storm-$stormSvc): "
   if [ $stormSvc == "ui" ]; then
     pkill -f backtype.storm.ui.core
   else

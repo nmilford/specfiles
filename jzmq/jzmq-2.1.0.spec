@@ -1,4 +1,7 @@
-# wget https://github.com/nathanmarz/jzmq/tarball/master -O ~/rpmbuild/SOURCES/jzmq-2.1.0.tar.gz
+# sudo yum -y install rpmdevtools && rpmdev-setuptree
+# wget http://nodeload.github.com/nathanmarz/jzmq/tarball/master -O ~/rpmbuild/SOURCES/jzmq-2.1.0.tar.gz
+# sudo yum -y install libtool automake autoconf
+# rpmbuild -bb ~/rpmbuild/SPECS/jzmq-2.1.0.spec
 
 Name:          jzmq
 Version:       2.1.0
@@ -26,7 +29,7 @@ This package contains the Java Bindings for ZeroMQ.
 %package devel
 Summary:  Development files and static library for the Java Bindings for the ZeroMQ library.
 Group:    Development/Libraries
-Requires: %{name} = %{version}-%{release}, pkgconfig
+Requires: %{name} = %{version}-%{release}, pkgconfig, zeromq
 
 %description devel
 The 0MQ lightweight messaging kernel is a library which extends the
@@ -84,4 +87,3 @@ This package contains Java Bindings for ZeroMQ related development libraries and
 - version of package changed to 2.1.0
 * Tue Sep 21 2010 Stefan Majer <stefan.majer@gmail.com> 
 - Initial packaging
-
