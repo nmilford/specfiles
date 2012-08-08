@@ -2,13 +2,13 @@
 # 
 # sudo yum -y install rpmdevtools && rpmdev-setuptree
 # 
-# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm-0.8.spec ~/rpmbuild/SPECS/storm-0.8.spec
+# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm-0.8.spec -O ~/rpmbuild/SPECS/storm-0.8.spec
 # wget https://github.com/downloads/nathanmarz/storm/storm-0.8.0.zip -O ~/rpmbuild/SOURCES/storm-0.8.0.zip
-# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm ~/rpmbuild/SOURCES/storm
-# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm-nimbus ~/rpmbuild/SOURCES/storm-nimbus
-# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm-supervisor ~/rpmbuild/SOURCES/storm-supervisor
-# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm-ui ~/rpmbuild/SOURCES/storm-ui
-# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm.nofiles.conf ~/rpmbuild/SOURCES/storm.nofiles.conf
+# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm -O ~/rpmbuild/SOURCES/storm
+# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm-nimbus -O ~/rpmbuild/SOURCES/storm-nimbus
+# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm-supervisor -O ~/rpmbuild/SOURCES/storm-supervisor
+# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm-ui -O ~/rpmbuild/SOURCES/storm-ui
+# wget https://raw.github.com/nmilford/specfiles/master/storm-0.8/storm.nofiles.conf -O ~/rpmbuild/SOURCES/storm.nofiles.conf
 # 
 # rpmbuild -bb ~/rpmbuild/SPECS/storm-0.8.spec
 
