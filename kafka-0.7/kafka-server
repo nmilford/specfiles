@@ -15,7 +15,7 @@ if [ -f /etc/sysconfig/kafka ]; then
 fi
 
 start() {
-  echo -n $"Starting $desc (kafka-server): "
+  echo "Starting $desc (kafka-server): "
 
   for file in $KAFKA_HOME/project/boot/scala-2.8.0/lib/*.jar; do
     CLASSPATH=$CLASSPATH:$file
@@ -52,7 +52,7 @@ start() {
 }
 
 stop() {
-  echo -n $"Shutting down  $desc (kafka-server): "
+  echo "Shutting down  $desc (kafka-server): "
   pkill -f kafka.Kafka
 }
 
