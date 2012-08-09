@@ -13,7 +13,7 @@ URL:           http://www.zeromq.org/
 Source:        %{name}-%{version}.tar.gz
 Prefix:        %{_prefix}
 Buildroot:     %{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires: gcc, make, gcc-c++, libstdc++-devel
+BuildRequires: gcc, make, gcc-c++, libstdc++-devel, libtool, zeromq-devel, java-1.6.0-openjdk-devel
 Requires:      libstdc++, zeromq
 
 %description
@@ -45,6 +45,7 @@ This package contains Java Bindings for ZeroMQ related development libraries and
 %setup -n nathanmarz-jzmq-dd3327d
 
 %build
+export JAVA_HOME=/usr/lib/jvm/java-openjdk
 ./autogen.sh
 %configure
 
