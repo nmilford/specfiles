@@ -2,7 +2,7 @@
 # 
 # sudo yum -y install rpmdevtools && rpmdev-setuptree
 # 
-# wget https://raw.github.com/nmilford/specfiles/master/activemq-5.7.0/activemq-5.7.spec -O ~/rpmbuild/SPECS/activemq-5.7
+# wget https://raw.github.com/nmilford/specfiles/master/activemq-5.7.0/activemq-5.7.spec -O ~/rpmbuild/SPECS/activemq-5.7.spec
 # wget http://apache.claz.org/activemq/apache-activemq/5.7.0/apache-activemq-5.7.0-bin.zip  -O ~/rpmbuild/SOURCES/apache-activemq-5.7.0-bin.zip
 # wget https://raw.github.com/nmilford/specfiles/master/activemq-5.7/activemq.init -O ~/rpmbuild/SOURCES/activemq.init
 # 
