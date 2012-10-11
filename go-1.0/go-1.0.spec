@@ -7,10 +7,10 @@
 # 
 # sudo yum -y install rpmdevtools ed bison mercurial && rpmdev-setuptree
 # 
-# wget https://raw.github.com/nmilford/specfiles/master/go/go.spec -O ~/rpmbuild/SPECS/go.spec
+# wget https://raw.github.com/nmilford/specfiles/master/go-1.0/go-1.0.spec -O ~/rpmbuild/SPECS/go-1.0.spec
 # wget https://go.googlecode.com/files/go1.0.3.src.tar.gz -O ~/rpmbuild/SOURCES/go1.0.3.src.tar.gz
 # 
-# rpmbuild -bb ~/rpmbuild/SPECS/go.spec
+# rpmbuild -bb ~/rpmbuild/SPECS/go-1.0.spec
 
 Name:          go
 Version:       1.0.3
@@ -74,7 +74,7 @@ export MAKE=%{__make}
 mkdir -p "$GOBIN"
 cd src
 
-LC_ALL=C PATH="$PATH:$GOBIN" ./all.bash
+LC_ALL=C PATH="$PATH:$GOBIN" ./make.bash
 
 %install
 rm -rf %{buildroot}
