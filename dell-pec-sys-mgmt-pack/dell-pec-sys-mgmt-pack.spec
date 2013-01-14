@@ -22,7 +22,7 @@ Group:     System Tools
 URL:       http://poweredgec.com/
 Source0:   http://poweredgec.com/files/sys_mgmt_pack-2012-11-01.tgz
 Source1:   http://poweredgec.com/files/pec-logs-2012-10-22.tgz
-Requires:  perl >= 5.8, OpenIPMI, OpenIPMI-tools, net-snmp, net-snmp-utils
+Requires:  perl >= 5.8, OpenIPMI, OpenIPMI-tools, net-snmp, net-snmp-utils, dmidecode
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 %description
