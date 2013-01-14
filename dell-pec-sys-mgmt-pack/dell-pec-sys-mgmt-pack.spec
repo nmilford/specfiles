@@ -71,10 +71,8 @@ install    -m 644 %{_builddir}/%{name}-%{version}/sys_mgmt_pack/examples/*  %{bu
 
 
 install -d -m 755 %{buildroot}/etc/profile.d/
-cat <<EOF >> %{buildroot}/etc/profile.d/pec.sh 
-export PEC_HOME="%{target_root}"
-PATH=%{target_root}/bin:${PATH}
-EOF
+echo 'export PEC_HOME="%{target_root}"
+PATH=$PEC_HOME/bin:$PATH' > %{buildroot}/etc/profile.d/pec.sh
 
 
 %clean
